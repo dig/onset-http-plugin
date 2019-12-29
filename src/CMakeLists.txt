@@ -16,6 +16,7 @@ add_library(onset-http-plugin MODULE
 target_include_directories(onset-http-plugin PRIVATE
 	${PLUGIN_CONFIG_INCLUDE_DIR}
 	${HORIZONSDK_INCLUDE_DIR}
+	${CURL_INCLUDE_DIRS}
 )
 
 set_property(TARGET onset-http-plugin PROPERTY PREFIX "")
@@ -48,7 +49,7 @@ elseif(UNIX)
 	)
 endif()
 
-target_link_libraries(onset-http-plugin ${HORIZONSDK_LIBRARY})
+target_link_libraries(onset-http-plugin ${HORIZONSDK_LIBRARY} ${CURL_LIBRARIES})
 
 if(UNIX)
 	if(NOT APPLE)

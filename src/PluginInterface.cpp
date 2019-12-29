@@ -19,14 +19,14 @@ EXPORT(void) OnPluginCreateInterface(Onset::IBaseInterface *PluginInterface)
 EXPORT(int) OnPluginStart()
 {
 	Plugin::Get();
-	Onset::Plugin::Get()->Log("OnsetJavaPlugin (" PLUGIN_VERSION ") loaded!");
+	Onset::Plugin::Get()->Log("onset-http-plugin (" PLUGIN_VERSION ") loaded.");
 	return PLUGIN_API_VERSION;
 }
 
 EXPORT(void) OnPluginStop()
 {
 	Plugin::Singleton::Destroy();
-	Onset::Plugin::Get()->Log("OnsetJavaPlugin unloaded!");
+	Onset::Plugin::Get()->Log("onset-http-plugin unloaded.");
 	Onset::Plugin::Destroy();
 }
 
