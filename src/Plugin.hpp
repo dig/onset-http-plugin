@@ -3,6 +3,9 @@
 #include <vector>
 #include <tuple>
 #include <functional>
+#include <map>
+#include <any>
+
 #include <PluginSDK.h>
 #include "Singleton.hpp"
 
@@ -24,8 +27,11 @@ private:
 	}
 
 public:
+	std::string userAgent = "curl/7.42.0";
 	decltype(_func_list) const &GetFunctions() const
 	{
 		return _func_list;
 	}
+	Lua::LuaTable_t ToLuaTable(std::map<std::string, std::any> args);
+	std::map<std::string, std::any> ToMapAny(std::map<std::string, std::string> map);
 };
