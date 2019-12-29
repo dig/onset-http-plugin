@@ -9,7 +9,7 @@ Authors: Digital
 More features such as Async and other HTTP request methods are coming soon.
 
 ### Installation
-1. Download onset-http-plugin.dll (Windows) & onset-http-plugin.so (Linux) from Releases ([HERE](https://github.com/dig/onset-http-library/releases)) and place inside plugins folder.
+1. Download onset-http-plugin.dll (Windows) & onset-http-plugin.so (Linux) from Releases ([HERE](https://github.com/dig/onset-http-plugin/releases)) and place inside plugins folder.
 1. Enable "onset-http-plugin" as a plugin inside server_config.json.
 
 ### Example
