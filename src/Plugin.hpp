@@ -3,7 +3,6 @@
 #include <vector>
 #include <tuple>
 #include <functional>
-#include <jni.h>
 #include <PluginSDK.h>
 #include "Singleton.hpp"
 
@@ -13,8 +12,6 @@ class Plugin : public Singleton<Plugin>
 private:
 	Plugin();
 	~Plugin() = default;
-	JavaVM *jvms[30];
-	JNIEnv* jenvs[30];
 
 private:
 	using FuncInfo_t = std::tuple<const char *, lua_CFunction>;
@@ -31,11 +28,4 @@ public:
 	{
 		return _func_list;
 	}
-	int CreateJava(std::string classPath);
-	void DestroyJava(int id);
-	JavaVM* GetJavaVM(int id);
-	JNIEnv* GetJavaEnv(int id);
-
-	jobject ToJavaObject(JNIEnv* jenv, Lua::LuaValue value);
-	Lua::LuaValue ToLuaValue(JNIEnv* jenv, jobject object);
 };

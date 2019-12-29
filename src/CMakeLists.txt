@@ -13,14 +13,9 @@ add_library(onset-http-plugin MODULE
 	Singleton.hpp
 )
 
-find_package(Java REQUIRED)
-find_package(JNI REQUIRED)
-include(UseJava)
-
 target_include_directories(onset-http-plugin PRIVATE
 	${PLUGIN_CONFIG_INCLUDE_DIR}
 	${HORIZONSDK_INCLUDE_DIR}
-	${JNI_INCLUDE_DIRS}
 )
 
 set_property(TARGET onset-http-plugin PROPERTY PREFIX "")
@@ -53,7 +48,7 @@ elseif(UNIX)
 	)
 endif()
 
-target_link_libraries(onset-http-plugin ${HORIZONSDK_LIBRARY} ${JNI_LIBRARIES})
+target_link_libraries(onset-http-plugin ${HORIZONSDK_LIBRARY})
 
 if(UNIX)
 	if(NOT APPLE)
