@@ -291,4 +291,126 @@ Plugin::Plugin()
 
         return 1;
     });
+
+    LUA_DEFINE(http_head)
+    {
+        Lua::LuaArgs_t args;
+        Lua::ParseArguments(L, args);
+
+        int args_size = static_cast<int>(args.size());
+        if (args_size < 1) return 0;
+
+        std::string URL = args[0].GetValue<std::string>();
+
+        CURL* curl = curl_easy_init();
+        if (curl) {
+            std::map<std::string, std::any> output;
+
+            struct curl_slist* chunk = NULL;
+            if (args_size >= 2) {
+                Lua::LuaTable_t table = args[1].GetValue<Lua::LuaTable_t>();
+                chunk = Plugin::Get()->ParseHeaders(table);
+                curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
+            }
+
+            if (args_size >= 3) {
+                Lua::LuaTable_t table = args[2].GetValue<Lua::LuaTable_t>();
+                URL = URL + Plugin::Get()->ParseParams(table);
+            }
+
+            curl_easy_setopt(curl, CURLOPT_NOBODY, 1L);
+            Plugin::Get()->CompleteRequest(curl, URL, chunk, &output);
+            return Lua::ReturnValues(L, Plugin::Get()->ToLuaTable(output));
+        }
+
+        return 1;
+    });
+
+    LUA_DEFINE(http_delete)
+    {
+        Lua::LuaArgs_t args;
+        Lua::ParseArguments(L, args);
+
+        int args_size = static_cast<int>(args.size());
+        if (args_size < 1) return 0;
+
+        std::string URL = args[0].GetValue<std::string>();
+
+        CURL* curl = curl_easy_init();
+        if (curl) {
+            std::map<std::string, std::any> output;
+
+            struct curl_slist* chunk = NULL;
+            if (args_size >= 2) {
+                Lua::LuaTable_t table = args[1].GetValue<Lua::LuaTable_t>();
+                chunk = Plugin::Get()->ParseHeaders(table);
+                curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
+            }
+
+            if (args_size >= 3) {
+                if (args[2].IsTable()) {
+                    Lua::LuaTable_t table = args[2].GetValue<Lua::LuaTable_t>();
+                    std::string params = Plugin::Get()->ParseParams(table);
+
+                    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, params.substr(1, params.length()).c_str());
+                }
+                else if (args[2].IsString()) {
+                    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, args[2].GetValue<std::string>().c_str());
+                }
+            }
+            else {
+                curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "");
+            }
+
+            curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+            Plugin::Get()->CompleteRequest(curl, URL, chunk, &output);
+            return Lua::ReturnValues(L, Plugin::Get()->ToLuaTable(output));
+        }
+
+        return 1;
+    });
+
+    LUA_DEFINE(http_patch)
+    {
+        Lua::LuaArgs_t args;
+        Lua::ParseArguments(L, args);
+
+        int args_size = static_cast<int>(args.size());
+        if (args_size < 1) return 0;
+
+        std::string URL = args[0].GetValue<std::string>();
+
+        CURL* curl = curl_easy_init();
+        if (curl) {
+            std::map<std::string, std::any> output;
+
+            struct curl_slist* chunk = NULL;
+            if (args_size >= 2) {
+                Lua::LuaTable_t table = args[1].GetValue<Lua::LuaTable_t>();
+                chunk = Plugin::Get()->ParseHeaders(table);
+                curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
+            }
+
+            if (args_size >= 3) {
+                if (args[2].IsTable()) {
+                    Lua::LuaTable_t table = args[2].GetValue<Lua::LuaTable_t>();
+                    std::string params = Plugin::Get()->ParseParams(table);
+
+                    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, params.substr(1, params.length()).c_str());
+                }
+                else if (args[2].IsString()) {
+                    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, args[2].GetValue<std::string>().c_str());
+                }
+            }
+            else {
+                curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "");
+            }
+
+            curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+            Plugin::Get()->CompleteRequest(curl, URL, chunk, &output);
+            return Lua::ReturnValues(L, Plugin::Get()->ToLuaTable(output));
+        }
+
+        return 1;
+    });
 }
