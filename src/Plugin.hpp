@@ -8,6 +8,7 @@
 
 #include <PluginSDK.h>
 #include "Singleton.hpp"
+#include <curl/curl.h>
 
 class Plugin : public Singleton<Plugin>
 {
@@ -34,4 +35,7 @@ public:
 	}
 	Lua::LuaTable_t ToLuaTable(std::map<std::string, std::any> args);
 	std::map<std::string, std::any> ToMapAny(std::map<std::string, std::string> map);
+	struct curl_slist* ParseHeaders(Lua::LuaTable_t table);
+	std::string ParseParams(Lua::LuaTable_t table);
+	int CompleteRequest(CURL* curl, std::string URL, struct curl_slist* chunk, std::map<std::string, std::any>* output);
 };
