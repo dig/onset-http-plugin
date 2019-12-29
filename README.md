@@ -21,8 +21,8 @@ local _res = http_get("http://www.httpbin.org/get", {
 })
 print (_res.body)
 
--- Synchronously send a get request to http://www.httpbin.org/post and print the status code
-local _res = http_get("http://www.httpbin.org/get", {
+-- Synchronously send a post request to http://www.httpbin.org/post and print the status code
+local _res = http_post("http://www.httpbin.org/post", {
   customHeader = "123",
   authentication = "bearer 123",
 }, {
