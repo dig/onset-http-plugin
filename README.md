@@ -1,1 +1,171 @@
 # onset-http-plugin
+Authors: Digital
+
+### Features
+* Sync.
+* GET, POST, PUT, HEAD, DELETE & PATCH requests.
+* No JVM this time! :)
+
+### Installation
+1. Download onset-http-plugin.dll (Windows) & onset-http-plugin.so (Linux) from Releases ([HERE](https://github.com/dig/onset-http-library/releases)) and place inside plugins folder.
+1. Enable "onset-http-plugin" as a plugin inside server_config.json.
+
+### Example
+```lua
+http_set_user_agent("myCustomPlugin/1.0")
+
+-- Synchronously send a get request to http://www.httpbin.org/get and print the body
+local _res = http_get("http://www.httpbin.org/get", {
+  customHeader = "123",
+  authentication = "bearer 123",
+})
+print (_res.body)
+
+-- Synchronously send a get request to http://www.httpbin.org/post and print the status code
+local _res = http_get("http://www.httpbin.org/get", {
+  customHeader = "123",
+  authentication = "bearer 123",
+}, {
+  field = "123",
+  name = "joseph"
+})
+print (_res.status)
+
+```
+
+### Functions
+#### http_get (Sync)
+Send a Get request.
+```lua
+http_get(url, headers)
+http_get(url, headers, params)
+```
+* **url** The URL to send the request to. Example: https://google.com
+* **headers** Table of headers to send. Example: { myHeader = "hi", anotherHeader = "lol", authentication = "bearer 123" }
+* **params** Parameters to add to the request. Example: { apiKey = "123" }
+
+Returns a table with body (string), status (int), headers (table) and elapsed (float). Nil if failed.
+```lua
+{
+  status = 200,
+  elapsed = 0.123,
+  body = "content here",
+  headers = {
+    ["Host"] = "www.httpbin.org" 
+  }
+}
+```
+
+#### http_post (Sync)
+Send a Post request.
+```lua
+http_post(url, headers, body)
+http_post(url, headers, fields)
+```
+* **url** The URL to send the request to. Example: https://google.com
+* **headers** Table of headers to send. Example: { myHeader = "hi", anotherHeader = "lol", authentication = "bearer 123" }
+* **body** String body, could be JSON. Example: "Hello, I am the body of the POST request."
+* **fields** Same as above but table is automatically parsed to JSON. Example: { key = "123", name = "Joseph" }
+
+Returns a table with body (string), status (int), headers (table) and elapsed (float). Nil if failed.
+```lua
+{
+  status = 200,
+  elapsed = 0.123,
+  body = "content here",
+  headers = {
+    ["Host"] = "www.httpbin.org" 
+  }
+}
+```
+
+#### http_put (Sync)
+Send a Put request.
+```lua
+http_put(url, headers, body)
+http_put(url, headers, fields)
+```
+* **url** The URL to send the request to. Example: https://google.com
+* **headers** Table of headers to send. Example: { myHeader = "hi", anotherHeader = "lol", authentication = "bearer 123" }
+* **body** String body, could be JSON. Example: "Hello, I am the body of the POST request."
+* **fields** Same as above but table is automatically parsed to JSON. Example: { key = "123", name = "Joseph" }
+
+Returns a table with body (string), status (int), headers (table) and elapsed (float). Nil if failed.
+```lua
+{
+  status = 200,
+  elapsed = 0.123,
+  body = "content here",
+  headers = {
+    ["Host"] = "www.httpbin.org" 
+  }
+}
+```
+
+#### http_head (Sync)
+Send a Head request.
+```lua
+http_head(url, headers)
+http_head(url, headers, params)
+```
+* **url** The URL to send the request to. Example: https://google.com
+* **headers** Table of headers to send. Example: { myHeader = "hi", anotherHeader = "lol", authentication = "bearer 123" }
+* **params** Parameters to add to the request. Example: { apiKey = "123" }
+
+Returns a table with body (string), status (int), headers (table) and elapsed (float). Nil if failed.
+```lua
+{
+  status = 200,
+  elapsed = 0.123,
+  body = "content here",
+  headers = {
+    ["Host"] = "www.httpbin.org" 
+  }
+}
+```
+
+#### http_delete (Sync)
+Send a Delete request.
+```lua
+http_delete(url, headers, body)
+http_delete(url, headers, fields)
+```
+* **url** The URL to send the request to. Example: https://google.com
+* **headers** Table of headers to send. Example: { myHeader = "hi", anotherHeader = "lol", authentication = "bearer 123" }
+* **body** String body, could be JSON. Example: "Hello, I am the body of the POST request."
+* **fields** Same as above but table is automatically parsed to JSON. Example: { key = "123", name = "Joseph" }
+
+Returns a table with body (string), status (int), headers (table) and elapsed (float). Nil if failed.
+```lua
+{
+  status = 200,
+  elapsed = 0.123,
+  body = "content here",
+  headers = {
+    ["Host"] = "www.httpbin.org" 
+  }
+}
+```
+
+#### http_patch (Sync)
+Send a Patch request.
+```lua
+http_patch(url, headers, body)
+http_patch(url, headers, fields)
+```
+* **url** The URL to send the request to. Example: https://google.com
+* **headers** Table of headers to send. Example: { myHeader = "hi", anotherHeader = "lol", authentication = "bearer 123" }
+* **body** String body, could be JSON. Example: "Hello, I am the body of the POST request."
+* **fields** Same as above but table is automatically parsed to JSON. Example: { key = "123", name = "Joseph" }
+
+Returns a table with body (string), status (int), headers (table) and elapsed (float). Nil if failed.
+```lua
+{
+  status = 200,
+  elapsed = 0.123,
+  body = "content here",
+  headers = {
+    ["Host"] = "www.httpbin.org" 
+  }
+}
+```
