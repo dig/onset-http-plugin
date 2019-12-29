@@ -172,7 +172,7 @@ Plugin::Plugin()
         return 1;
     });
 
-	LUA_DEFINE(http_get)
+    LUA_DEFINE(http_get)
 	{
         Lua::LuaArgs_t args;
         Lua::ParseArguments(L, args);
@@ -203,7 +203,7 @@ Plugin::Plugin()
         }
 
         return 1;
-	});
+    });
 
     LUA_DEFINE(http_post)
     {
