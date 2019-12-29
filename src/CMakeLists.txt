@@ -21,7 +21,7 @@ target_include_directories(onset-http-plugin PRIVATE
 
 set_property(TARGET onset-http-plugin PROPERTY PREFIX "")
 
-set_property(TARGET onset-http-plugin PROPERTY CXX_STANDARD 11)
+set_property(TARGET onset-http-plugin PROPERTY CXX_STANDARD 17)
 set_property(TARGET onset-http-plugin PROPERTY CXX_STANDARD_REQUIRED ON)
 
 if(MSVC)
