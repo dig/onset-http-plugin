@@ -12,6 +12,22 @@ More features such as Async and other HTTP request methods are coming soon.
 1. Download onset-http-plugin.dll (Windows) & onset-http-plugin.so (Linux) from Releases ([HERE](https://github.com/dig/onset-http-plugin/releases)) and place inside plugins folder.
 1. Enable "onset-http-plugin" as a plugin inside server_config.json.
 
+### Building the plugin (Interested in contributing)
+#### Windows
+1. Install vcpkg (c++ package manager), instructions [here](https://docs.microsoft.com/en-us/cpp/build/vcpkg?view=vs-2019).
+1. Install cURL static libraries. `./vcpkg install curl:x64-windows-static`
+1. Integrate into VS Studio. `./vcpkg integrate install`
+1. Run cmake in root project directory. `cmake -DCMAKE_GENERATOR_PLATFORM=x64 . -DVCPKG_TARGET_TRIPLET=x64-windows-static`
+1. Open onset-http-plugin.sln in Visual Studio.
+1. Change to Release and click Rebuild under `Build > Rebuild Solution`.
+1. DLL will be `src/Release/onset-http-plugin.dll`
+
+#### Linux
+1. Install Libcurl4 and Libcurl-openssl-dev. `sudo apt-get install libcurl4 libcurl4-openssl-dev -y`
+1. Run cmake in root project directory. `cmake .`
+1. Run make in root project directory. `make`
+1. Output will be `src/onset-http-plugin.so`
+
 ### Example
 ```lua
 http_set_user_agent("myCustomPlugin/1.0")
